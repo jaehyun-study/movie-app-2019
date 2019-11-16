@@ -1,43 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { directive } from "@babel/types";
 
-function People({ name, age }) {
-  return (
-    <h4>
-      I like {name}({age}).
-    </h4>
-  );
-}
+class App extends React.Component {
+  state = {
+    isLoading: true,
+    movies: []
+  };
 
-const PeopleILike = [
-  {
-    id: 1,
-    name: "John",
-    age: 32
-  },
-  {
-    id: 2,
-    name: "Kay",
-    age: 36
-  },
-  {
-    id: 3,
-    name: "Pororo",
-    age: 5
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 3000);
   }
-];
 
-People.propTypes = {
-  name: PropTypes.string.isRequired,
-  age: PropTypes.number.isRequired
-};
-
-function renderMan(man) {
-  return <People key={man.id} name={man.name} age={man.age} />;
-}
-
-function App() {
-  return <div className="App">{PeopleILike.map(renderMan)}</div>;
+  render() {
+    const { isLoading } = this.state;
+    return <div>{isLoading ? "Loading ..." : "We are ready"}</div>;
+  }
 }
 
 export default App;
